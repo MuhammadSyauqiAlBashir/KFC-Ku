@@ -1,12 +1,15 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdAccountCircle } from "react-icons/md";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <>
       <div className="navbar bg-white border-b border-neutral">
         <div className="flex-1 mx-36">
-          <img src="/image.png" />
+          <Link href="/">
+            <img src="/image.png" />
+          </Link>
           <button>
             <p className="text-black text-xl font-semibold">MENU</p>
           </button>
@@ -60,16 +63,6 @@ export default function Navbar() {
             </ul>
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-center navbar bg-black border-b border-neutral space-x-2">
-        <p className="font-semibold text-white">Ayo Pesan</p>
-        <img src="/send.png" style={{ width: 40, height: 40 }} />
-        <p className="font-semibold text-white">Pesan Antar</p>
-        <img src="/kfcnav.png" style={{ width: 40, height: 40 }} />
-        <p className="font-semibold text-white">atau Bawa Pulang</p>
-        <button className="btn bg-red-600 rounded-3xl text-white">
-          Mulai Order
-        </button>
       </div>
     </>
   );
