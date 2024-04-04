@@ -1,4 +1,9 @@
 export default function DetailProduct() {
+    async function fetchData() {
+      const response = await fetch("http://localhost:3000/api/products");
+      const data = await response.json();
+      return response
+    }
   return (
     <div className="bg-white">
       <div className="flex items-center justify-center navbar bg-black border-b border-neutral space-x-2">

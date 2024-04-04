@@ -10,7 +10,7 @@ export default function Navbar() {
           <Link href="/">
             <img src="/image.png" />
           </Link>
-          <Link href="/menus">
+          <Link href="/products">
             <p className="text-black text-xl font-semibold">MENU</p>
           </Link>
         </div>

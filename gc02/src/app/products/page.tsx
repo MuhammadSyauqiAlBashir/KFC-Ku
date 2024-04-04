@@ -2,7 +2,7 @@
 import Card from "@/components/card";
 import { useEffect, useState } from "react";
 
-export default function Menus() {
+export default function Products() {
   const [product, setProduct] = useState([]);
   useEffect(() => {
     async function fetchData() {
