@@ -6,8 +6,8 @@ export default function Card({ data }: { data: Product }) {
     <>
       <div className="relative flex w-80 mb-5 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-2xl">
         <div className="relative mx-4 mt-4 h-96 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
-          <Link href={`/detail-product/${data.slug}`}>
-          <img src={data.thumbnail} className="h-full w-full object-cover" />
+          <Link href={`/products/${data.slug}`}>
+            <img src={data.thumbnail} className="h-full w-full object-cover" />
           </Link>
         </div>
         <div className="p-6">

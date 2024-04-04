@@ -12,7 +12,6 @@ export default function Products() {
     }
     fetchData();
   }, []);
-  console.log(product);
 
   return (
     <div className="bg-white">
