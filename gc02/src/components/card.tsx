@@ -1,6 +1,9 @@
-export default function Card({ data }: { data: any }) {
+import { Product } from "@/db/types";
+import Link from "next/link";
+
+export default function Card({ data }: { data: Product }) {
   return (
-    <>
+    <Link href={`/detail-product/${data.slug}`}>
       <div className="relative flex w-80 mb-5 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-2xl">
         <div className="relative mx-4 mt-4 h-96 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
           <img src={data.thumbnail} className="h-full w-full object-cover" />
@@ -30,6 +33,6 @@ export default function Card({ data }: { data: any }) {
           </button>
         </div>
       </div>
-    </>
+    </Link>
   );
 }
