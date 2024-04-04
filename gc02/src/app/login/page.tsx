@@ -1,12 +1,20 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { AiFillApple } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 export default function Login() {
-  //   const [viewpass, setViewpass] = useState(true);
-  //   function handleViewpass = () => {
-  //     setViewpass(!viewpass);
-  //   }
+  const [viewpass, setViewpass] = useState(true);
+  function handleViewpass(): any {
+    if (viewpass) {
+      setViewpass(false);
+    } else {
+      setViewpass(true);
+    }
+  }
   return (
     <div className="flex flex-row justify-center h-screen bg-white">
       <img
@@ -17,20 +25,34 @@ export default function Login() {
         <h1 className="font-extrabold text-2xl">MASUK</h1>
         <p>(Pengguna dapat masuk dengan kredensial aplikasi KFCKU)</p>
         <form className="">
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            className="w-full bg-white mt-5 p-2 border-b-2 border-black"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="w-full bg-white mt-5 p-2 border-b-2 border-black"
-          />
+          <label className="input bg-white flex items-center gap-2 mt-5 border-b-2 border-b-black">
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              className="w-full bg-white mt-5 p-2"
+            />
+          </label>
+          <label className="input bg-white flex items-center gap-2 mt-5 border-b-2 border-b-black">
+            <input
+              type={viewpass ? "password" : "text"}
+              name="password"
+              placeholder="Password"
+              className="w-full bg-white"
+            />
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={handleViewpass}
+            >
+              {!viewpass && <AiOutlineEye />}
+              {viewpass && <AiOutlineEyeInvisible />}
+            </button>
+          </label>
           <div className="flex justify-end items-end mb-6">
-            <button className=" mt-5">Lupa Kata Sandi?</button>
+            <button type="button" className=" mt-5">
+              Lupa Kata Sandi?
+            </button>
           </div>
           <button
             type="submit"
@@ -39,7 +61,10 @@ export default function Login() {
             Masuk
           </button>
           <h1 className="font-extrabold mb-6">ATAU MASUK DENGAN:</h1>
-          <button className="bg-black mb-6 rounded-3xl w-full text-white h-12 flex justify-center items-center">
+          <button
+            type="button"
+            className="bg-black mb-6 rounded-3xl w-full text-white h-12 flex justify-center items-center"
+          >
             <AiFillApple
               style={{
                 color: "#ffffff",
@@ -48,7 +73,10 @@ export default function Login() {
             />
             <p>Masuk dengan Apple</p>
           </button>
-          <button className="bg-red-700 mb-6 rounded-3xl w-full text-white h-12 flex justify-center items-center">
+          <button
+            type="button"
+            className="bg-red-700 mb-6 rounded-3xl w-full text-white h-12 flex justify-center items-center"
+          >
             <FcGoogle
               style={{
                 color: "#ffffff",

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "crazy-deal-5pcs",
+    "slug": "crazy-deal-5pcs",
+    "description": "5 Pcs Chicken",
+    "excerpt": "5 Pcs Chicken.",
+    "price": 60000,
+    "tags": ["ayam", "paket", "kenyang"],
+    "thumbnail": "https://static.order.kfcku.com/images/items/lg/12949.jpg?v=LvjYXL",
+    "images": [
+      "https://static.order.kfcku.com/images/items/lg/12949.jpg?v=LvjYXL"
+    ],
+    "createdAt": "2023-12-15T15:32:06.350Z",
+    "updatedAt": "2024-03-18T14:47:12.101Z"
+  },
+  {
+    "name": "Super Duk-Duk Berbagi Customer",
+    "slug": "super-duk-duk-berbagi-customer",
+    "description": "Program Berbagi. Customer mendapat : 1pc Chicken +1 Rice +1 Sprite medium + 1Scratch card. 1 Paket Berbagi (1pc Chic+1Rice+1Sprite) disalurkan bersama LAZIS-NU, Benih Baik & KFC",
+    "excerpt": "Program Berbagi disalurkan bersama LAZIS-NU, Benih Baik & KFC",
+    "price": 50000,
+    "tags": ["ayam", "beramal", "berkah"],
+    "thumbnail": "https://static.order.kfcku.com/images/items/lg/12998.jpg?v=LvjYXL",
+    "images": [
+      "https://static.order.kfcku.com/images/items/lg/12998.jpg?v=LvjYXL"
+    ],
+    "createdAt": "2023-12-15T15:32:06.350Z",
+    "updatedAt": "2024-03-18T14:47:12.101Z"
+  }
+]

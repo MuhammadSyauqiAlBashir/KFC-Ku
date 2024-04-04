@@ -10,9 +10,9 @@ export default function Navbar() {
           <Link href="/">
             <img src="/image.png" />
           </Link>
-          <button>
+          <Link href="/menus">
             <p className="text-black text-xl font-semibold">MENU</p>
-          </button>
+          </Link>
         </div>
         <div className="flex-none gap-2 mx-44">
           <button>
