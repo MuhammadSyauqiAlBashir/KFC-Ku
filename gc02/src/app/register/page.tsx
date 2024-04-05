@@ -1,6 +1,31 @@
+import { ErrorRegister } from "@/components/errorRegister";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Register() {
+  const handleRegisterAction = async (formData: FormData) => {
+    "use server";
+    const rawFormData = {
+      username: formData.get("username"),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    const response = await fetch(`http://localhost:3000/api/user/register`, {
+      cache: "no-store",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rawFormData),
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      return redirect(`/register?error=${result.message}`);
+    }
+    redirect("/login");
+  };
   return (
     <>
       <div className="flex flex-row justify-center h-screen bg-white">
@@ -10,7 +35,8 @@ export default function Register() {
         />
         <div className="mt-20 text-black ml-16 w-4/12 flex flex-col">
           <h1 className="font-extrabold text-2xl">BUAT AKUN</h1>
-          <form className="">
+          <ErrorRegister/>
+          <form action={handleRegisterAction}>
             <input
               type="text"
               placeholder="Username ..."

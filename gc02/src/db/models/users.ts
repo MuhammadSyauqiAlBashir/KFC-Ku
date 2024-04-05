@@ -4,9 +4,11 @@ import { z } from "zod";
 import bcryptPass from "@/db/helpers/bcrypt";
 
 export const UserValidation = z.object({
-  username: z.string({
+  username: z
+  .string({
     required_error: "Username cant be empty",
-  }),
+  })
+  .min(1, {message : "Username Required"}),
   email: z
     .string({
       required_error: "Email cant be empty",
@@ -23,16 +25,25 @@ export default class UserModel {
   static userCollection() {
     return database.collection<User>("Users");
   }
+  static async findUserByUsername(username: string) {
+    const user = await this.userCollection().findOne({ username });
+    return user;
+  }
+  static async findUserByEmail(email: string) {
+    const user = await this.userCollection().findOne({ email });
+    return user;
+  }
   static async createUser(userData: User): Promise<User> {
     try {
-      const collection = this.userCollection();
-      userData.password = await bcryptPass.hashPassword(userData.password);
-      const result = await collection.insertOne(userData);
-      return {
-        ...userData,
-      };
+      const checkUsername = await this.findUserByUsername(userData.username);
+      if (checkUsername) throw new Error("Username already exists");
+      const checkEmail = await this.findUserByEmail(userData.email);
+      if (checkEmail) throw new Error("Email already exists");
+      userData.password = bcryptPass.hashPassword(userData.password);
+      const result = await this.userCollection().insertOne(userData);
+      return { ...userData, _id: result.insertedId };
     } catch (error: any) {
-      throw new Error("Failed to create user: " + error.message);
+      throw new Error(error.message);
     }
   }
 }
