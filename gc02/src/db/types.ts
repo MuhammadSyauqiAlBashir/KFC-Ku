@@ -3,15 +3,15 @@ import { ObjectId } from "mongodb";
 export interface User {
   _id: ObjectId;
   name: string;
-  username: string; // validation: required, unique
-  email: string; // validation: required, unique, email format
-  password: string; // validation: required, length min 5
+  username: string;
+  email: string;
+  password: string;
 }
 
 export interface Product {
   _id: ObjectId;
-  name: string; // validation: required
-  slug: string; // validation: required, unique
+  name: string;
+  slug: string;
   description: string;
   excerpt: string;
   price: number;
@@ -24,8 +24,8 @@ export interface Product {
 
 export interface Wishlist {
   _id: ObjectId;
-  userId: ObjectId; // validation: required
-  productId: ObjectId; // validation: required
+  userId: ObjectId;
+  productId: ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,4 +1,4 @@
-export default function Carousel() {
+export default function Carouselx() {
   return (
     <div className="h-screen bg-white">
       <div

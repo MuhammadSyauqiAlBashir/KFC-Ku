@@ -1,8 +1,9 @@
-import { User } from "@/db/types"
+import { User } from "@/db/types";
 import { database } from "../config/config";
 import { z } from "zod";
+import bcryptPass from "@/db/helpers/bcrypt";
 
-const UserValidation = z.object({
+export const UserValidation = z.object({
   username: z.string({
     required_error: "Username cant be empty",
   }),
@@ -20,6 +21,18 @@ const UserValidation = z.object({
 
 export default class UserModel {
   static userCollection() {
-    return database.collection<User>("users");
+    return database.collection<User>("Users");
+  }
+  static async createUser(userData: User): Promise<User> {
+    try {
+      const collection = this.userCollection();
+      userData.password = await bcryptPass.hashPassword(userData.password);
+      const result = await collection.insertOne(userData);
+      return {
+        ...userData,
+      };
+    } catch (error: any) {
+      throw new Error("Failed to create user: " + error.message);
+    }
   }
 }

@@ -25,7 +25,9 @@ export async function generateMetadata(
 }
 
 async function fetchData(slug: string) {
-  const response = await fetch(`http://localhost:3000/api/products/${slug}`);
+  const response = await fetch(`http://localhost:3000/api/products/${slug}`, {
+    cache : 'no-store'
+  });
   const data = await response.json();
   return data;
 }

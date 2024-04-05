@@ -1,4 +1,4 @@
-import { Wishlist } from "@/api/types"
+import { Wishlist } from "@/db/types"
 import { database } from "../config/config";
 import { z } from "zod";
 
@@ -14,5 +14,8 @@ const WishlistValidation = z.object({
 export default class WishlistModel {
   static wishlistCollection() {
     return database.collection<Wishlist>("wishlists");
+  }
+  static async addToWishlist(wishlistData: Wishlist) {
+    await this.wishlistCollection().insertOne(wishlistData);
   }
 }

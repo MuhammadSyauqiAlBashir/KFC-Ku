@@ -1,4 +1,4 @@
-import { Product } from "@/db/types"
+import { Product } from "@/db/types";
 import { database } from "../config/config";
 import { z } from "zod";
 
@@ -17,12 +17,24 @@ export default class ProductModel {
   }
 
   static async getAllProducts() {
-    const data = await this.productCollection().find().toArray()
-    
+    const data = await this.productCollection().find().toArray();
+
     return data;
   }
   static async getProductBySlug(slug: string) {
-    const data = await this.productCollection().findOne({ slug: slug })
+    const data = await this.productCollection().findOne({ slug: slug });
     return data;
+  }
+  static async showListProduct() {
+    const agg = [
+      {
+        $match: {
+          tags: "Paket",
+        },
+      },
+    ];
+    const cursor = this.productCollection().aggregate(agg);
+    const result = await cursor.toArray();
+    return result;
   }
 }
