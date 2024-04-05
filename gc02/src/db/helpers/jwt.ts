@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const secret = process.env.JWT_SECRET;
+import jwt from "jsonwebtoken"
 
-class Tokenjwt {
+const secret = process.env.JWT_SECRET as string
+export class Tokenjwt {
   static genToken(payload: object) {
     return jwt.sign(payload, secret);
   }
@@ -9,5 +9,3 @@ class Tokenjwt {
     return jwt.verify(token, secret);
   }
 }
-
-module.exports = Tokenjwt;

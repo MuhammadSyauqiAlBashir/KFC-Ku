@@ -1,20 +1,10 @@
-"use client";
 import Link from "next/link";
-import { useState } from "react";
 import { AiFillApple } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { HandleLogin } from "@/actions/login";
 
 export default function Login() {
-  const [viewpass, setViewpass] = useState(true);
-  function handleViewpass(): any {
-    if (viewpass) {
-      setViewpass(false);
-    } else {
-      setViewpass(true);
-    }
-  }
+
   return (
     <div className="flex flex-row justify-center h-screen bg-white">
       <img
@@ -24,7 +14,7 @@ export default function Login() {
       <div className="mt-20 text-black ml-16 w-4/12 flex flex-col">
         <h1 className="font-extrabold text-2xl">MASUK</h1>
         <p>(Pengguna dapat masuk dengan kredensial aplikasi KFCKU)</p>
-        <form className="">
+        <form action={HandleLogin}>
           <label className="input bg-white flex items-center gap-2 mt-5 border-b-2 border-b-black">
             <input
               type="text"
@@ -35,19 +25,11 @@ export default function Login() {
           </label>
           <label className="input bg-white flex items-center gap-2 mt-5 border-b-2 border-b-black">
             <input
-              type={viewpass ? "password" : "text"}
+              type="password"
               name="password"
               placeholder="Password"
               className="w-full bg-white"
             />
-            <button
-              type="button"
-              className="cursor-pointer"
-              onClick={handleViewpass}
-            >
-              {!viewpass && <AiOutlineEye />}
-              {viewpass && <AiOutlineEyeInvisible />}
-            </button>
           </label>
           <div className="flex justify-end items-end mb-6">
             <button type="button" className=" mt-5">
