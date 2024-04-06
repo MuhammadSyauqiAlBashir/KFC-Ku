@@ -1,12 +1,13 @@
 "use client";
-import { Product } from "@/db/types";
+import { Product, Wishlist } from "@/db/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AddWishlistButton from "./addwishlist";
 import RemoveWishlistButton from "./removewishlist";
 
-export default function Card({ data }: { data: Product}) {
+export default function Card({ data }: { data: Product }) {
   const [flag, setFlag] = useState(false);
+  const [wish, setWish] = useState<Wishlist | null>(null);
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -16,12 +17,12 @@ export default function Card({ data }: { data: Product}) {
         }
       );
       const responseData = await response.json();
-      console.log(responseData);
-      
       if (responseData.data) {
         setFlag(true);
+        setWish(responseData.data);
       } else {
         setFlag(false);
+        setWish(null);
       }
     }
     fetchData();
@@ -52,8 +53,8 @@ export default function Card({ data }: { data: Product}) {
           </p>
         </div>
         <div className="p-6 pt-0 flex justify-center items-center">
-            {!flag && <AddWishlistButton/>}
-            {flag && <RemoveWishlistButton/>}
+          {!flag && <AddWishlistButton data={data} />}
+          {flag && wish && <RemoveWishlistButton data={data} wish={wish} />}
         </div>
       </div>
     </>

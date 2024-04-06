@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import AddWishlistButton from "./addwishlist"
 import RemoveWishlistButton from "./removewishlist"
-import { Product } from "@/db/types";
+import { Product, Wishlist } from "@/db/types";
 
 export default function CardDetail({ product }: { product: Product }) {
-  const [wish, setWish] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [wish, setWish] = useState<Wishlist | null>(null);
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -17,17 +18,16 @@ export default function CardDetail({ product }: { product: Product }) {
       );
       const responseData = await response.json();
       if (responseData.data) {
-        setWish(true);
+        setFlag(true);
+        setWish(responseData.data);
       } else {
-        setWish(false);
+        setFlag(false);
+        setWish(null);
       }
     }
     fetchData();
   }, []);
-
-  console.log(product)
   return (
-    
     <div className="sticky flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
       <img src="/merah.png" style={{ width: 50, height: 30 }} />
       <div className="p-6">
@@ -38,8 +38,8 @@ export default function CardDetail({ product }: { product: Product }) {
           {product.description}
         </p>
       </div>
-      {!wish && <AddWishlistButton />}
-      {wish && <RemoveWishlistButton />}
+      {!flag && <AddWishlistButton data={product} />}
+      {flag && wish && <RemoveWishlistButton data={product} wish={wish} />}
     </div>
   );
 }

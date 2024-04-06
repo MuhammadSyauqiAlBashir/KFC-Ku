@@ -30,4 +30,9 @@ export default class WishlistModel {
       .toArray();
     return wishlist[0]
   }
+  static async deleteWishlist(_id: string) {
+        const result = await this.wishlistCollection()
+          .deleteOne({ _id : new ObjectId(_id) });
+        return result
+    }
 }
