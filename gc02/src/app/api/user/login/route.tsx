@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     const isValid = bcryptPass.comparePassword(body.password, user.password);
     if (!isValid) throw new Error("Invalid username or password");
     const token = Tokenjwt.genToken({
-      id: user._id,
+      _id: user._id.toString(),
       email: user.email,
       username: user.username,
     });

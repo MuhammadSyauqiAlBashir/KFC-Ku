@@ -7,6 +7,11 @@ export interface User {
   email: string;
   password: string;
 }
+export interface Payload {
+  _id: string;
+  username: string;
+  email : string
+}
 
 export interface Product {
   _id: ObjectId;

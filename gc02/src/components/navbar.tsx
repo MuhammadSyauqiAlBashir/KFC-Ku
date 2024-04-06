@@ -1,6 +1,7 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdAccountCircle } from "react-icons/md";
 import Link from "next/link";
+import LogoutButton from "./logoutbutton";
 
 export default function Navbar() {
   return (
@@ -58,7 +59,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <a>Logout</a>
+                <LogoutButton />
               </li>
             </ul>
           </div>
