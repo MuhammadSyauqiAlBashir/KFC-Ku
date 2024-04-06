@@ -37,12 +37,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(request.nextUrl);
     }
   } else if (request.nextUrl.pathname.startsWith("/login")) {
-    if(login) {
+    if (login) {
       request.nextUrl.pathname = "/";
       return NextResponse.redirect(request.nextUrl);
     }
   } else if (request.nextUrl.pathname.startsWith("/register")) {
-    if(login) {
+    if (login) {
       request.nextUrl.pathname = "/";
       return NextResponse.redirect(request.nextUrl);
     }
@@ -50,5 +50,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/wishlist", "/wishlist", "/login", "/register"],
+  matcher: [
+    "/api/wishlist",
+    "/api/wishlist/:path*",
+    "/wishlist",
+    "/login",
+    "/register",
+  ],
 };

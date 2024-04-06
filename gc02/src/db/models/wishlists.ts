@@ -1,4 +1,4 @@
-import { Wishlist } from "@/db/types"
+import { Wishlist } from "@/db/types";
 import { database } from "../config/config";
 import { z } from "zod";
 import { ObjectId } from "mongodb";
@@ -24,10 +24,10 @@ export default class WishlistModel {
     const result = await this.wishlistCollection().insertOne(wishlistData);
     return { ...wishlistData, _id: result.insertedId };
   }
-  static async findWishlist(_id: string) {
+  static async findWishlist(_id: string, user: string) {
     const wishlist = await this.wishlistCollection()
-      .find({ _id: new ObjectId(_id) })
+      .find({userId: new ObjectId(user), productId: new ObjectId(_id) })
       .toArray();
-    return wishlist;
+    return wishlist[0]
   }
 }

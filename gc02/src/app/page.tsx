@@ -1,3 +1,4 @@
+"use server"
 import { Product } from "@/db/types";
 import { Card, CardContent } from "@/components/cardcn";
 import {

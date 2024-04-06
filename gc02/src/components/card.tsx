@@ -1,7 +1,30 @@
+"use client";
 import { Product } from "@/db/types";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import AddWishlistButton from "./addwishlist";
+import RemoveWishlistButton from "./removewishlist";
 
-export default function Card({ data }: { data: Product }) {
+export default function Card({ data }: { data: Product}) {
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        `http://localhost:3000/api/wishlist/${data._id}`,
+        {
+          cache: "no-store",
+        }
+      );
+      const responseData = await response.json();
+      if (responseData.data) {
+        setFlag(true);
+      } else {
+        setFlag(false);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="relative flex w-80 mb-5 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-2xl">
@@ -26,13 +49,9 @@ export default function Card({ data }: { data: Product }) {
             {data.excerpt}
           </p>
         </div>
-        <div className="p-6 pt-0 justify-end items-end">
-          <button
-            className="block w-full select-none rounded-lg bg-blue-gray-900/10 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-blue-gray-900 transition-all hover:scale-105 focus:scale-105 focus:opacity-[0.85] active:scale-100 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button"
-          >
-            Add to Wish Lists
-          </button>
+        <div className="p-6 pt-0 flex justify-center items-center">
+            {!flag && <AddWishlistButton/>}
+            {flag && <RemoveWishlistButton/>}
         </div>
       </div>
     </>

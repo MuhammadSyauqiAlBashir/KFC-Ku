@@ -28,8 +28,8 @@ export default function Products() {
         </button>
       </div>
       <div className="grid grid-cols-4 p-16">
-        {product?.map((data) => (
-          <Card data={data} />
+        {product?.map((data,index) => (
+          <Card key={index} data={data}/>
         ))}
       </div>
     </div>

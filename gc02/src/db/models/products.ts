@@ -18,7 +18,6 @@ export default class ProductModel {
 
   static async getAllProducts() {
     const data = await this.productCollection().find().toArray();
-
     return data;
   }
   static async getProductBySlug(slug: string) {
