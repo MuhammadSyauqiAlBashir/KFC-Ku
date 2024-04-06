@@ -1,9 +1,12 @@
 "use client";
 
 import { Product } from "@/db/types";
+import { redirect } from "next/navigation";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function AddWishlistButton({ data }: { data: Product }) {
+  const router = useRouter();
   const handleAddWishlist = async () => {
     try {
       // const base_url = process.env.URI as string;
@@ -26,7 +29,10 @@ export default function AddWishlistButton({ data }: { data: Product }) {
         icon: "success",
         text: `Successfully Added to Your Wishlist`,
       });
+      router.push("/wishlist");
     } catch (error: any) {
+      console.log(error);
+
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -35,7 +41,11 @@ export default function AddWishlistButton({ data }: { data: Product }) {
     }
   };
   return (
-    <button className="btn btn-success" type="button" onClick={handleAddWishlist}>
+    <button
+      className="btn btn-success"
+      type="button"
+      onClick={handleAddWishlist}
+    >
       ADD TO WISH LIST
     </button>
   );
