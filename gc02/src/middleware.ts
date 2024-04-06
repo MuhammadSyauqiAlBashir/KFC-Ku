@@ -5,9 +5,9 @@ import { readPayloadJose } from "./db/helpers/jwt";
 import { redirect } from "next/navigation";
 
 export async function middleware(request: NextRequest) {
-  let user = cookies().get("Authorization");
+  let login = cookies().get("Authorization");
   if (request.nextUrl.pathname.startsWith("/api/wishlist")) {
-    if (!user) {
+    if (!login) {
       return NextResponse.json(
         {
           errMessage: "Invalid Login",
@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    const { value } = user;
+    const { value } = login;
     const token = value.split(" ")[1];
     const newHeaders = new Headers(request.headers);
 
@@ -32,17 +32,17 @@ export async function middleware(request: NextRequest) {
       },
     });
   } else if (request.nextUrl.pathname.startsWith("/wishlist")) {
-    if (!user) {
+    if (!login) {
       request.nextUrl.pathname = "/login";
       return NextResponse.redirect(request.nextUrl);
     }
   } else if (request.nextUrl.pathname.startsWith("/login")) {
-    if(user) {
+    if(login) {
       request.nextUrl.pathname = "/";
       return NextResponse.redirect(request.nextUrl);
     }
   } else if (request.nextUrl.pathname.startsWith("/register")) {
-    if(user) {
+    if(login) {
       request.nextUrl.pathname = "/";
       return NextResponse.redirect(request.nextUrl);
     }

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     if (parsedData.success === false) {
       throw parsedData.error;
     }
-
+    
     const newUser = await UserModel.createUser(body);
 
     return Response.json(

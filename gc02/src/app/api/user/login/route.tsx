@@ -1,6 +1,7 @@
 import bcryptPass from "@/db/helpers/bcrypt";
 import { Tokenjwt } from "@/db/helpers/jwt";
 import UserModel from "@/db/models/users";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -16,6 +17,7 @@ export async function POST(request: Request) {
       email: user.email,
       username: user.username,
     });
+    cookies().set("Authorization", `Bearer ${token}`);
     return Response.json(
       {
         data: { token: token },
