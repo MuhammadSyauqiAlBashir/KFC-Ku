@@ -16,6 +16,8 @@ export default function Card({ data }: { data: Product}) {
         }
       );
       const responseData = await response.json();
+      console.log(responseData);
+      
       if (responseData.data) {
         setFlag(true);
       } else {
