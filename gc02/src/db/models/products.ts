@@ -16,8 +16,21 @@ export default class ProductModel {
     return database.collection<Product>("Products");
   }
 
-  static async getAllProducts() {
-    const data = await this.productCollection().find().toArray();
+  static async getAllProducts(
+    page: number,
+    limit: number,
+    keyword: string
+  ) {
+    const data = await this.productCollection()
+      .find({
+        name: {
+          $regex: keyword,
+          $options: "i",
+        },
+      })
+      .skip(page * limit)
+      .limit(limit)
+      .toArray();
     return data;
   }
   static async getProductBySlug(slug: string) {
