@@ -26,6 +26,7 @@ export default function RemoveWishlistButton({
         cache: "no-store",
       });
       if (!response.ok) {
+        router.push("/wishlist");
         throw new Error("Failed to Delete Wishlist");
       }
 

@@ -1,3 +1,4 @@
+import UserModel from "@/db/models/users";
 import WishlistModel, { WishlistValidation } from "@/db/models/wishlists";
 import { z } from "zod";
 
@@ -53,6 +54,27 @@ export async function DELETE(request: Request) {
     return Response.json(
       {
         data: check,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    return Response.json(
+      { error: error, message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    const userId = request.headers.get("x-user-id") as string;
+    console.log(userId);
+    const profile = await UserModel.getUserProfile(userId);
+    return Response.json(
+      {
+        data: profile,
       },
       {
         status: 200,

@@ -2,13 +2,14 @@ import { User } from "@/db/types";
 import { database } from "../config/config";
 import { z } from "zod";
 import bcryptPass from "@/db/helpers/bcrypt";
+import { ObjectId } from "mongodb";
 
 export const UserValidation = z.object({
   username: z
-  .string({
-    required_error: "Username cant be empty",
-  })
-  .min(1, {message : "Username Required"}),
+    .string({
+      required_error: "Username cant be empty",
+    })
+    .min(1, { message: "Username Required" }),
   email: z
     .string({
       required_error: "Email cant be empty",
@@ -45,5 +46,35 @@ export default class UserModel {
     } catch (error: any) {
       throw new Error(error.message);
     }
+  }
+  static async getUserProfile(userId: string) {
+    const agg = [
+      {
+        $match: {
+          _id: new ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: "Wishlists",
+          localField: "_id",
+          foreignField: "userId",
+          as: "Wishlists",
+        },
+      },
+      {
+        $lookup: {
+          from: "Products",
+          localField: "Wishlists.productId",
+          foreignField: "_id",
+          as: "WishDetail",
+        },
+      },
+    ];
+    const cursor = this.userCollection().aggregate(agg);
+    const result = await cursor.toArray();
+    console.log(result);
+    
+    return result[0]
   }
 }

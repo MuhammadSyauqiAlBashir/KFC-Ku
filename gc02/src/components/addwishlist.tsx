@@ -21,6 +21,7 @@ export default function AddWishlistButton({ data }: { data: Product }) {
         cache: "no-store",
       });
       if (!response.ok) {
+        router.push("/wishlist");
         throw new Error("Failed to add item to wishlist");
       }
 

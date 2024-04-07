@@ -18,7 +18,7 @@ export async function HandleLogin(formData: FormData): Promise<Response | void> 
 
   const result = await response.json();
   if (!response.ok) {
-    return redirect(`/register?error=${result.message}`);
+    return redirect(`/login?error=${result.message}`);
   }
   cookies().set("Authorization", `Bearer ${result.data.token}`);
   redirect("/");
