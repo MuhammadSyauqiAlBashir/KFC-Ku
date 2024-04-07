@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import AddWishlistButton from "./addwishlist";
 import RemoveWishlistButton from "./removewishlist";
 
-export default function Card({ data }: { data: Product }) {
+export default function Card({ data, refetchData }: { data: Product, refetchData: any }) {
   const [flag, setFlag] = useState(false);
   const [wish, setWish] = useState<Wishlist | null>(null);
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Card({ data }: { data: Product }) {
         </div>
         <div className="p-6 pt-0 flex justify-center items-center">
           {!flag && <AddWishlistButton data={data} />}
-          {flag && wish && <RemoveWishlistButton data={data} wish={wish} />}
+          {flag && wish && <RemoveWishlistButton refetchData={refetchData} data={data} wish={wish} />}
         </div>
       </div>
     </>

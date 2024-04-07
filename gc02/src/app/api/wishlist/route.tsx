@@ -70,7 +70,6 @@ export async function DELETE(request: Request) {
 export async function GET(request: Request) {
   try {
     const userId = request.headers.get("x-user-id") as string;
-    console.log(userId);
     const profile = await UserModel.getUserProfile(userId);
     return Response.json(
       {

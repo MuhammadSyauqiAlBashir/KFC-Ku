@@ -7,9 +7,11 @@ import { useRouter } from "next/navigation";
 export default function RemoveWishlistButton({
   data,
   wish,
+  refetchData,
 }: {
   data: Product;
   wish: Wishlist;
+  refetchData: any;
 }) {
   const router = useRouter();
   const handleDeleteWishlist = async () => {
@@ -29,6 +31,9 @@ export default function RemoveWishlistButton({
         router.push("/wishlist");
         throw new Error("Failed to Delete Wishlist");
       }
+      refetchData()
+      console.log(data);
+      
 
       const result = await response.json();
 
@@ -36,7 +41,6 @@ export default function RemoveWishlistButton({
         icon: "success",
         text: `Successfully Delete Product in Your Wishlist`,
       });
-      router.push("/wishlist");
     } catch (error: any) {
       console.log(error);
       Swal.fire({

@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 
 export default function Products() {
   const [product, setProduct] = useState([]);
+  async function fetchData() {
+    const response = await fetch("http://localhost:3000/api/products" , {
+      cache : 'no-store'
+    });
+    const data = await response.json();
+    setProduct(data.data);
+  }
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("http://localhost:3000/api/products" , {
-        cache : 'no-store'
-      });
-      const data = await response.json();
-      setProduct(data.data);
-    }
     fetchData();
   }, []);
 
@@ -29,7 +29,7 @@ export default function Products() {
       </div>
       <div className="grid grid-cols-4 p-16">
         {product?.map((data,index) => (
-          <Card key={index} data={data}/>
+          <Card refetchData={fetchData} key={index} data={data}/>
         ))}
       </div>
     </div>

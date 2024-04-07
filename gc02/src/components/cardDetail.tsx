@@ -8,23 +8,23 @@ import { Product, Wishlist } from "@/db/types";
 export default function CardDetail({ product }: { product: Product }) {
   const [flag, setFlag] = useState(false);
   const [wish, setWish] = useState<Wishlist | null>(null);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        `http://localhost:3000/api/wishlist/${product._id}`,
-        {
-          cache: "no-store",
-        }
-      );
-      const responseData = await response.json();
-      if (responseData.data) {
-        setFlag(true);
-        setWish(responseData.data);
-      } else {
-        setFlag(false);
-        setWish(null);
+  async function fetchData() {
+    const response = await fetch(
+      `http://localhost:3000/api/wishlist/${product._id}`,
+      {
+        cache: "no-store",
       }
+    );
+    const responseData = await response.json();
+    if (responseData.data) {
+      setFlag(true);
+      setWish(responseData.data);
+    } else {
+      setFlag(false);
+      setWish(null);
     }
+  }
+  useEffect(() => {
     fetchData();
   }, []);
   return (
@@ -39,7 +39,7 @@ export default function CardDetail({ product }: { product: Product }) {
         </p>
       </div>
       {!flag && <AddWishlistButton data={product} />}
-      {flag && wish && <RemoveWishlistButton data={product} wish={wish} />}
+      {flag && wish && <RemoveWishlistButton refetchData={fetchData} data={product} wish={wish} />}
     </div>
   );
 }
