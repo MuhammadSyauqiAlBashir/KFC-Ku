@@ -10,7 +10,7 @@ export default function AddWishlistButton({ data }: { data: Product }) {
   const handleAddWishlist = async () => {
     try {
       // const base_url = process.env.URI as string;
-      const response = await fetch(`/api/wishlist`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

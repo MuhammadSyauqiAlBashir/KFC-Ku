@@ -11,7 +11,7 @@ export default function Card({ data, refetchData }: { data: Product, refetchData
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
-        `http://localhost:3000/api/wishlist/${data._id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist/${data._id}`,
         {
           cache: "no-store",
         }

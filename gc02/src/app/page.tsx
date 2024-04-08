@@ -12,7 +12,7 @@ import Carouselx from "@/components/carousel";
 import Link from "next/link";
 
 async function fetchData() {
-  const response = await fetch(`http://localhost:3000/api/products/showlist`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products/showlist`, {
     cache: "no-store",
   });
   const data = await response.json();

@@ -17,7 +17,7 @@ export default function RemoveWishlistButton({
   const handleDeleteWishlist = async () => {
     try {
       // const base_url = process.env.URI as string;
-      const response = await fetch(`/api/wishlist`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -32,9 +32,6 @@ export default function RemoveWishlistButton({
         throw new Error("Failed to Delete Wishlist");
       }
       refetchData()
-      console.log(data);
-      
-
       const result = await response.json();
 
       Swal.fire({

@@ -8,7 +8,7 @@ export default function Wishlist() {
   const [product, setProduct] = useState([]);
   const [user, setUser] = useState("");
   async function fetchData() {
-    const response = await fetch("http://localhost:3000/api/wishlist", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist`, {
       cache: "no-store",
     });
     const data = await response.json();

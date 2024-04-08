@@ -1,19 +1,51 @@
 "use client";
 import Card from "@/components/card";
+import SearchBar from "@/components/searchbar";
 import { useEffect, useState } from "react";
 
 export default function Products() {
   const [product, setProduct] = useState([]);
-  async function fetchData() {
-    const response = await fetch("http://localhost:3000/api/products" , {
-      cache : 'no-store'
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  async function fetchData(pageNumber: number) {
+    if (keyword.length > 0) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products?search=${keyword}`, {
+      cache: "no-store",
+      headers:{
+        'Content-Type' : 'application/json'
+        },
     });
-    const data = await response.json();
-    setProduct(data.data);
+    const newData = await response.json();
+    setProduct([])
+    setProduct(newData.data)
+    }else{
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products?page=${pageNumber}&search=${keyword}`, {
+        cache: "no-store",
+      });
+      const newData = await response.json();
+      
+      setProduct(product.concat(newData.data));
+      setHasMore(newData.data.length > 0);
+      setLoading(false);
+    }
+  }
+  function handleScroll() {
+    if (!loading && hasMore && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100) {
+      setLoading(true);
+      setPage(page + 1);
+    }
   }
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(page); 
+  }, [page, keyword]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, hasMore]);
 
   return (
     <div className="bg-white">
@@ -26,6 +58,9 @@ export default function Products() {
         <button className="btn bg-red-600 rounded-3xl text-white">
           Mulai Order
         </button>
+      </div>
+      <div className="mt-14 flex items-center justify-center">
+        <SearchBar setKeyword={setKeyword} />
       </div>
       <div className="grid grid-cols-4 p-16">
         {product?.map((data,index) => (

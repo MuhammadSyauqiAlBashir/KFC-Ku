@@ -10,7 +10,7 @@ export default function CardDetail({ product }: { product: Product }) {
   const [wish, setWish] = useState<Wishlist | null>(null);
   async function fetchData() {
     const response = await fetch(
-      `http://localhost:3000/api/wishlist/${product._id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist/${product._id}`,
       {
         cache: "no-store",
       }

@@ -7,7 +7,7 @@ export async function HandleLogin(formData: FormData): Promise<Response | void> 
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  const response = await fetch(`http://localhost:3000/api/user/login`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/user/login`, {
     cache: "no-store",
     method: "POST",
     headers: {
