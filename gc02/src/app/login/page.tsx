@@ -2,10 +2,11 @@ import Link from "next/link";
 import { AiFillApple } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { HandleLogin } from "@/actions/login";
+import { Suspense } from "react";
 import { ErrorRegister } from "@/components/errorRegister";
+export const dynamic = "force-dynamic"
 
 export default function Login() {
-
   return (
     <div className="flex flex-row justify-center h-screen bg-white">
       <img
@@ -15,7 +16,9 @@ export default function Login() {
       <div className="mt-20 text-black ml-16 w-4/12 flex flex-col">
         <h1 className="font-extrabold text-2xl">MASUK</h1>
         <p>(Pengguna dapat masuk dengan kredensial aplikasi KFCKU)</p>
-        <ErrorRegister/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ErrorRegister />
+        </Suspense>
         <form action={HandleLogin}>
           <label className="input bg-white flex items-center gap-2 mt-5 border-b-2 border-b-black">
             <input

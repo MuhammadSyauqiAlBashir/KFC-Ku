@@ -1,8 +1,7 @@
 "use client";
 import Card from "@/components/card";
 import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
-
+export const dynamic = "force-dynamic"
 
 export default function Wishlist() {
   const [product, setProduct] = useState([]);

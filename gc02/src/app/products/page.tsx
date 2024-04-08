@@ -2,6 +2,7 @@
 import Card from "@/components/card";
 import SearchBar from "@/components/searchbar";
 import { useEffect, useState } from "react";
+export const dynamic = "force-dynamic"
 
 export default function Products() {
   const [product, setProduct] = useState([]);

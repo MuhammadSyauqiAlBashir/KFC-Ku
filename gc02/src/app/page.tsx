@@ -14,6 +14,9 @@ import Link from "next/link";
 async function fetchData() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products/showlist`, {
     cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = await response.json();
   return data;
