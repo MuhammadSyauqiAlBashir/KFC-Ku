@@ -53,6 +53,11 @@ export default function Navbar() {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
+                <Link href="/login" className="justify-between">
+                  Login
+                </Link>
+              </li>
+              <li>
                 <Link href="/wishlist" className="justify-between">
                   Wishlist
                   <span className="badge">New</span>

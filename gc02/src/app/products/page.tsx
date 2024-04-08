@@ -21,12 +21,10 @@ export default function Products() {
     setProduct([])
     setProduct(newData.data)
     }else{
-
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products?page=${pageNumber}&search=${keyword}`, {
         cache: "no-store",
       });
       const newData = await response.json();
-      
       setProduct(product.concat(newData.data));
       setHasMore(newData.data.length > 0);
       setLoading(false);

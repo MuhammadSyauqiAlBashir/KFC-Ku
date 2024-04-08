@@ -16,7 +16,6 @@ export default function RemoveWishlistButton({
   const router = useRouter();
   const handleDeleteWishlist = async () => {
     try {
-      // const base_url = process.env.URI as string;
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/wishlist`, {
         method: "DELETE",
         headers: {
@@ -33,7 +32,7 @@ export default function RemoveWishlistButton({
       }
       refetchData()
       const result = await response.json();
-
+      router.push("/wishlist");
       Swal.fire({
         icon: "success",
         text: `Successfully Delete Product in Your Wishlist`,
